@@ -2,6 +2,7 @@ package com.example.countme;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.View;        //for View
 import android.view.animation.Animation;
@@ -17,6 +18,7 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Toast;
+import android.os.Vibrator;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.i("String", "No");
         }
-
 
 
 
@@ -92,8 +93,12 @@ public class MainActivity extends AppCompatActivity {
     TextView myTextView;
     int num0, num1, num2, num3, num4, num5, num6, num7, num8, num9, counter = 0;
 
-    public void testToast(View v) {
-        Toast.makeText(this, "Works", Toast.LENGTH_SHORT).show();
+    private void vibCheck () {
+        Vibrator vbr = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vbr.vibrate(400);
+        if (vbr.hasVibrator()) {
+            Log.v("Can vibrate", "YES");
+        }
     }
 
     public TranslateAnimation shakeError() {
@@ -104,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkAns(View v) {
-
 
         TextView leftOp = (TextView) findViewById(R.id.leftNum);
         String leftOp_text = leftOp.getText().toString();
@@ -193,6 +197,8 @@ public class MainActivity extends AppCompatActivity {
             ansOp.setTextColor(Color.parseColor("#00a500"));
 
         } else {
+
+            vibCheck();
 
             leftOp.setTextColor(Color.parseColor("#d80000"));
             plusOp.setTextColor(Color.parseColor("#d80000"));
